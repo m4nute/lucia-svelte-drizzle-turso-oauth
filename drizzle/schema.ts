@@ -12,29 +12,6 @@ export const users = sqliteTable("auth_user", {
   avatar: text("avatar")
 })
 
-export const usersRelations = relations(users, ({ many }) => ({
-  links: many(links)
-}))
-
-export const links = sqliteTable("user_links", {
-  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-  title: text("title").notNull(),
-  image: text("image"),
-  url: text("url").notNull(),
-  authorId: text("user_id", {
-    length: 15
-  })
-    .notNull()
-    .references(() => users.id)
-})
-
-export const linksRelations = relations(links, ({ one }) => ({
-  author: one(users, {
-    fields: [links.authorId],
-    references: [users.id]
-  })
-}))
-
 export const sessions = sqliteTable("user_session", {
   id: text("id", {
     length: 128
@@ -67,4 +44,3 @@ export const keys = sqliteTable("auth_key", {
 })
 
 export type User = typeof users.$inferSelect
-export type Link = typeof links.$inferSelect
