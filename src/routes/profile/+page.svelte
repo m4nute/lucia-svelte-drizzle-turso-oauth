@@ -1,9 +1,10 @@
 <script lang="ts">
   import { enhance } from "$app/forms"
   import type { SesInfo } from "../../ambient"
+  import type { PageData } from "./$types"
 
-  export let data: SesInfo
-  const user = data.session.user
+  export let data: PageData
+  const { user }: SesInfo = (data as any).session
 </script>
 
 <h1>Profile</h1>
